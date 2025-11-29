@@ -56,6 +56,11 @@ app.*.map.json
 **/ios/ServiceDefinitions.json
 **/ios/Runner/GeneratedPluginRegistrant.*
 
+# Android specific (local machine/build artifacts)
+android/.gradle/
+android/local.properties
+android/app/google-services.json
+
 # macOS related
 **/macos/Flutter/GeneratedPluginRegistrant.swift
 
