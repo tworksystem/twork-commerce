@@ -17,6 +17,8 @@ class PointProvider with ChangeNotifier {
   String? _errorMessage;
   static const String _balanceKey = 'user_point_balance';
   StreamSubscription<PointSyncEvent>? _syncSubscription;
+  String? _currentUserId;
+  bool _hasLoadedForCurrentUser = false;
 
   // Getters
   PointBalance? get balance => _balance;
@@ -46,6 +48,32 @@ class PointProvider with ChangeNotifier {
     }
   }
 
+  /// Handle authentication state changes
+  /// Automatically loads balance when user becomes authenticated
+  Future<void> handleAuthStateChange({
+    required bool isAuthenticated,
+    String? userId,
+  }) async {
+    if (isAuthenticated && userId != null) {
+      // Only load if this is a new user or we haven't loaded for this user yet
+      if (_currentUserId != userId || !_hasLoadedForCurrentUser) {
+        _currentUserId = userId;
+        Logger.info('User authenticated, loading point balance for user: $userId',
+            tag: 'PointProvider');
+        await loadBalance(userId);
+        _hasLoadedForCurrentUser = true;
+      }
+    } else {
+      // User logged out - clear state
+      _currentUserId = null;
+      _hasLoadedForCurrentUser = false;
+      _balance = null;
+      _transactions = [];
+      notifyListeners();
+      Logger.info('User logged out, cleared point data', tag: 'PointProvider');
+    }
+  }
+
   void _handleSyncEvent(PointSyncEvent event) {
     if (event.userFacing && event.userMessage != null) {
       _setError(event.userMessage!);
@@ -53,9 +81,18 @@ class PointProvider with ChangeNotifier {
   }
 
   /// Load point balance for user
-  Future<void> loadBalance(String userId) async {
+  /// If forceRefresh is true, will reload even if already loaded for this user
+  Future<void> loadBalance(String userId, {bool forceRefresh = false}) async {
+    // Skip if already loaded for this user and not forcing refresh
+    if (!forceRefresh && _currentUserId == userId && _hasLoadedForCurrentUser && _balance != null) {
+      Logger.info('Balance already loaded for user $userId, skipping',
+          tag: 'PointProvider');
+      return;
+    }
+
     _setLoading(true);
     _clearError();
+    _currentUserId = userId;
 
     try {
       // Try to load from API if online
@@ -65,10 +102,14 @@ class PointProvider with ChangeNotifier {
         final balance = await PointService.getPointBalance(userId);
         if (balance != null) {
           _balance = balance;
+          _hasLoadedForCurrentUser = true;
           notifyListeners();
           Logger.info(
               'Point balance loaded from API: ${balance.currentBalance} points',
               tag: 'PointProvider');
+
+          // Cache the balance
+          await _cacheBalance(balance);
 
           // Sync local transactions in background (non-blocking)
           PointService.syncAllTransactions(userId).catchError((e) {
@@ -237,6 +278,19 @@ class PointProvider with ChangeNotifier {
       }
     } catch (e) {
       Logger.error('Error loading cached balance: $e',
+          tag: 'PointProvider', error: e);
+    }
+  }
+
+  /// Cache balance to local storage
+  Future<void> _cacheBalance(PointBalance balance) async {
+    try {
+      final prefs = await SharedPreferences.getInstance();
+      final balanceJson = json.encode(balance.toJson());
+      await prefs.setString(_balanceKey, balanceJson);
+      Logger.info('Point balance cached to local storage', tag: 'PointProvider');
+    } catch (e) {
+      Logger.error('Error caching balance: $e',
           tag: 'PointProvider', error: e);
     }
   }

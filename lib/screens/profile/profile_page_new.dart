@@ -29,9 +29,20 @@ class _ProfilePageNewState extends State<ProfilePageNew> {
   void initState() {
     super.initState();
     // Ensure latest billing phone/city are merged from Woo on page open
+    // Also load point balance when profile page opens
     WidgetsBinding.instance.addPostFrameCallback((_) async {
       final authProvider = Provider.of<AuthProvider>(context, listen: false);
+      final pointProvider = Provider.of<PointProvider>(context, listen: false);
+      
+      // Refresh user data
       await authProvider.refreshUser();
+      
+      // Load point balance if user is authenticated (fallback if not loaded yet)
+      if (authProvider.isAuthenticated && authProvider.user != null) {
+        final userId = authProvider.user!.id.toString();
+        // Force refresh to ensure latest balance is shown
+        await pointProvider.loadBalance(userId, forceRefresh: true);
+      }
     });
   }
 

@@ -12,11 +12,18 @@
 │ Offline    │ ◄── │ Background/   │
 │ Queue      │     │ Sync Handlers │
 └────────────┘     └───────────────┘
+     ▲
+     │
+┌─────────────────────────┐
+│ PointAuthListener       │
+│ (Auto-Load on Auth)     │
+└─────────────────────────┘
 ```
 
 - **Transactions** are cached locally, encrypted at rest, and replayed through the offline queue when connectivity resumes.
 - **Point sync** uses exponential backoff, telemetry hooks, and toast notifications to surface failures to the customer.
 - **WordPress plugin** records every transaction within a SQL transaction, writes structured logs with rotation, and exposes REST endpoints secured by WooCommerce API keys plus nonce verification for authenticated sessions.
+- **Auto-Loading**: `PointAuthListener` widget automatically loads point balance when user authentication state changes, ensuring points are always available without requiring navigation.
 
 ## REST Endpoints
 
@@ -45,6 +52,58 @@
 - Each point transaction is given a deterministic queue id (`point-<transaction_id>`).
 - The queue deduplicates by id and replays items through `PointService.syncQueuedPointTransaction`.
 - Failures remain in the queue until a retry succeeds or hits the retry ceiling, at which point they are logged and surfaced via telemetry.
+
+## Auto-Loading Architecture
+
+The Flutter app implements automatic point balance loading that ensures points are displayed immediately when needed:
+
+### Components
+
+1. **PointAuthListener** (`lib/widgets/point_auth_listener.dart`)
+   - Wraps the app and listens to `AuthProvider` state changes
+   - Automatically triggers `PointProvider.handleAuthStateChange()` when user logs in
+   - Clears points when user logs out
+   - Uses `Consumer<AuthProvider>` for efficient reactive updates
+
+2. **PointProvider Enhancements** (`lib/providers/point_provider.dart`)
+   - `handleAuthStateChange()` method responds to authentication changes
+   - `loadBalance()` with smart caching and duplicate prevention
+   - Tracks current user ID to avoid unnecessary API calls
+   - `_cacheBalance()` persists balance to SharedPreferences
+
+3. **Profile Page Fallback** (`lib/screens/profile/profile_page_new.dart`)
+   - Loads balance on page open as a safety net
+   - Ensures points display even if auto-load didn't trigger
+   - Force refresh option for latest balance
+
+### Loading Flow
+
+```
+App Start
+    ↓
+PointAuthListener checks auth state
+    ↓
+User Authenticated? → Yes
+    ↓
+PointProvider.handleAuthStateChange()
+    ↓
+Load from API (with cache fallback)
+    ↓
+Cache balance locally
+    ↓
+notifyListeners() → UI updates
+    ↓
+Points displayed immediately
+```
+
+### Benefits
+
+- **Zero User Action**: Points appear automatically on app start
+- **Instant Display**: Cached balance shown immediately
+- **Always Fresh**: Background API call updates cache
+- **Offline Resilient**: Works without network
+- **Efficient**: Prevents duplicate calls with user ID tracking
+- **Professional UX**: Seamless experience
 
 ## Logging & Monitoring
 

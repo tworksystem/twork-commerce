@@ -9,6 +9,7 @@ import 'package:ecommerce_int2/providers/wishlist_provider.dart';
 import 'package:ecommerce_int2/providers/product_filter_provider.dart';
 import 'package:ecommerce_int2/providers/point_provider.dart';
 import 'package:ecommerce_int2/providers/category_provider.dart';
+import 'package:ecommerce_int2/widgets/point_auth_listener.dart';
 import 'package:ecommerce_int2/providers/in_app_notification_provider.dart';
 import 'package:ecommerce_int2/services/notification_service.dart';
 import 'package:ecommerce_int2/services/background_service.dart';
@@ -315,19 +316,21 @@ class _MyAppState extends State<MyApp> with WidgetsBindingObserver {
         ChangeNotifierProvider.value(value: ConnectivityService()),
         ChangeNotifierProvider.value(value: OfflineQueueService()),
       ],
-      child: MaterialApp(
-        navigatorKey: AppKeys
-            .navigatorKey, // Global navigator key for navigation from anywhere
-        scaffoldMessengerKey: AppKeys.scaffoldMessengerKey,
-        title: 'T-Work Commerce',
-        debugShowCheckedModeBanner: false,
-        theme: ThemeData(
-          brightness: Brightness.light,
-          canvasColor: Colors.transparent,
-          primarySwatch: Colors.blue,
-          fontFamily: "Montserrat",
+      child: PointAuthListener(
+        child: MaterialApp(
+          navigatorKey: AppKeys
+              .navigatorKey, // Global navigator key for navigation from anywhere
+          scaffoldMessengerKey: AppKeys.scaffoldMessengerKey,
+          title: 'T-Work Commerce',
+          debugShowCheckedModeBanner: false,
+          theme: ThemeData(
+            brightness: Brightness.light,
+            canvasColor: Colors.transparent,
+            primarySwatch: Colors.blue,
+            fontFamily: "Montserrat",
+          ),
+          home: SplashScreen(),
         ),
-        home: SplashScreen(),
       ),
     );
   }

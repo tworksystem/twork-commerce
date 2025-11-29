@@ -606,3 +606,11 @@ wp-content/plugins/twork-points-system/***REMOVED***
 ***REMOVED***
 ***REMOVED***
 ***REMOVED***
+
+# Build artifacts (should not be committed)
+build/
+.dart_tool/
+android/.gradle/
+android/app/build/
+android/app/google-services.json
+
