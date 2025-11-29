@@ -1,82 +1,608 @@
-# Miscellaneous
-*.class
-*.log
-*.pyc
-*.swp
-.DS_Store
-.atom/
-.buildlog/
-.history
-.svn/
-migrate_working_dir/
+# ============================================================================
+# T-Work Commerce - Professional .gitignore
+# ============================================================================
+# This file ensures that build artifacts, sensitive data, and IDE-specific
+# files are not committed to version control.
+# ============================================================================
 
-# IntelliJ related
+# ============================================================================
+# Flutter & Dart
+# ============================================================================
+
+# Flutter/Dart/Pub related
+.dart_tool/
+.dart_tool/**
+.flutter-plugins
+.flutter-plugins-dependencies
+.packages
+.pub-cache/
+.pub/
+**/doc/api/
+**/.dart_tool/
+**/.packages
+*.dart.js
+*.dart.js.map
+*.info.json
+*.js_
+*.js.deps
+*.js.map
+
+# Flutter build outputs
+build/
+**/build/
+*.apk
+*.aab
+*.app
+*.ipa
+*.dmg
+*.exe
+*.deb
+*.rpm
+*.snap
+
+# Flutter generated files
+**/generated_plugin_registrant.dart
+**/generated_plugin_registrant.*
+**/GeneratedPluginRegistrant.*
+
+# Flutter coverage
+coverage/
+*.lcov
+*.coverage
+*.coverage.*
+
+# ============================================================================
+# Android
+# ============================================================================
+
+# Android Studio / IntelliJ IDEA
 *.iml
 *.ipr
 *.iws
 .idea/
+.idea/**
+!/.idea/codeStyles/
+!/.idea/runConfigurations.xml
+!/.idea/tasks.xml
+local.properties
+*.hprof
+*.orig
+*.rej
+*.swp
+*.swo
+*~
 
-# The .vscode folder contains launch configuration and tasks you configure in
-# VS Code which you may wish to be included in version control, so this line
-# is commented out by default.
-#.vscode/
+# Android build artifacts
+android/.gradle/
+android/app/build/
+android/app/debug/
+android/app/profile/
+android/app/release/
+android/build/
+android/.cxx/
+android/.externalNativeBuild/
+android/app/.cxx/
+android/app/.externalNativeBuild/
+android/app/intermediates/
+android/app/tmp/
+android/app/generated/
+android/app/src/main/assets/flutter_assets/
 
-# Flutter/Dart/Pub related
-**/doc/api/
-**/ios/Flutter/.last_build_id
-.dart_tool/
-.flutter-plugins
-.flutter-plugins-dependencies
-.pub-cache/
-.pub/
-/build/
+# Android signing keys (NEVER commit these!)
+*.jks
+*.keystore
+*.key
+*.p12
+*.pfx
+*.pem
 
-# Symbolication related
+# Android Firebase & Google Services
+android/app/google-services.json
+android/app/src/**/google-services.json
+android/app/src/**/GoogleService-Info.plist
+
+# Android Gradle
+android/.gradle/
+android/gradle/
+android/gradlew
+android/gradlew.bat
+android/gradle-wrapper.jar
+!android/gradle/wrapper/gradle-wrapper.jar
+!android/gradle/wrapper/gradle-wrapper.properties
+
+# Android NDK
+android/app/.cxx/
+android/.cxx/
+android/app/src/main/jniLibs/
+android/app/src/main/cpp/
+
+# ============================================================================
+# iOS / macOS
+# ============================================================================
+
+# Xcode
+*.xcodeproj/*
+!*.xcodeproj/project.pbxproj
+!*.xcodeproj/xcshareddata/
+!*.xcworkspace/contents.xcworkspacedata
+*.xcworkspace/*
+!*.xcworkspace/contents.xcworkspacedata
+!*.xcworkspace/xcshareddata/
+*.xcuserdata/
+*.xcuserdatad/
+*.xcscmblueprint
+*.xccheckout
+*.xcuserstate
+*.xcsettings
+DerivedData/
+*.hmap
+*.ipa
+*.dSYM.zip
+*.dSYM
+
+# iOS Flutter
+ios/Flutter/.last_build_id
+ios/Flutter/App.framework
+ios/Flutter/Flutter.framework
+ios/Flutter/Flutter.podspec
+ios/Flutter/Generated.xcconfig
+ios/Flutter/ephemeral/
+ios/Flutter/app.flx
+ios/Flutter/app.zip
+ios/Flutter/flutter_assets/
+ios/Flutter/Flutter.framework/
+ios/ServiceDefinitions.json
+ios/Runner/GeneratedPluginRegistrant.*
+
+# CocoaPods
+ios/Pods/
+ios/.symlinks/
+ios/Podfile.lock
+ios/.flutter-plugins
+ios/.flutter-plugins-dependencies
+ios/Flutter/Flutter.podspec
+
+# iOS Firebase
+ios/Runner/GoogleService-Info.plist
+ios/**/GoogleService-Info.plist
+
+# macOS
+macos/Flutter/GeneratedPluginRegistrant.swift
+macos/Flutter/ephemeral/
+macos/.symlinks/
+macos/Flutter/Flutter.framework/
+macos/Flutter/Flutter.podspec
+macos/Flutter/GeneratedPluginRegistrant.swift
+
+# ============================================================================
+# Web
+# ============================================================================
+
+# Web build outputs
+web/**/*.js
+web/**/*.js.map
+web/**/*.dart.js
+web/**/*.dart.js.map
+!web/index.html
+!web/manifest.json
+!web/favicon.png
+!web/icons/
+web/main.dart.js
+web/main.dart.js.map
+web/flutter_service_worker.js
+web/flutter_service_worker.js.map
+
+# ============================================================================
+# Windows
+# ============================================================================
+
+# Windows build artifacts
+windows/flutter/generated_plugin_registrant.cc
+windows/flutter/generated_plugin_registrant.h
+windows/flutter/ephemeral/
+windows/.flutter-plugins
+windows/.flutter-plugins-dependencies
+
+# Visual Studio
+.vs/
+*.suo
+*.user
+*.userosscache
+*.sln.docstates
+*.userprefs
+*.VC.db
+*.VC.VC.opendb
+
+# ============================================================================
+# Linux
+# ============================================================================
+
+# Linux build artifacts
+linux/flutter/generated_plugin_registrant.cc
+linux/flutter/generated_plugin_registrant.h
+linux/flutter/ephemeral/
+linux/.flutter-plugins
+linux/.flutter-plugins-dependencies
+
+# ============================================================================
+# IDE & Editor Files
+# ============================================================================
+
+# Visual Studio Code
+.vscode/
+!.vscode/settings.json
+!.vscode/tasks.json
+!.vscode/launch.json
+!.vscode/extensions.json
+*.code-workspace
+
+# IntelliJ IDEA / Android Studio
+.idea/
+*.iml
+*.ipr
+*.iws
+out/
+.idea_modules/
+
+# Eclipse
+.classpath
+.project
+.settings/
+bin/
+tmp/
+*.tmp
+*.bak
+*.swp
+*~.nib
+
+# Sublime Text
+*.sublime-project
+*.sublime-workspace
+
+# Vim
+*.swp
+*.swo
+*~
+.vim/
+
+# Emacs
+*~
+\#*\#
+/.emacs.desktop
+/.emacs.desktop.lock
+*.elc
+auto-save-list
+tramp
+.\#*
+
+# ============================================================================
+# Operating System Files
+# ============================================================================
+
+# macOS
+.DS_Store
+.AppleDouble
+.LSOverride
+Icon
+._*
+.DocumentRevisions-V100
+.fseventsd
+.Spotlight-V100
+.TemporaryItems
+.Trashes
+.VolumeIcon.icns
+.com.apple.timemachine.donotpresent
+.AppleDB
+.AppleDesktop
+Network Trash Folder
+Temporary Items
+.apdisk
+
+# Windows
+Thumbs.db
+Thumbs.db:encryptable
+ehthumbs.db
+ehthumbs_vista.db
+*.stackdump
+[Dd]esktop.ini
+$RECYCLE.BIN/
+*.cab
+*.msi
+*.msix
+*.msm
+*.msp
+*.lnk
+
+# Linux
+*~
+.fuse_hidden*
+.directory
+.Trash-*
+.nfs*
+
+# ============================================================================
+# Security & Secrets (CRITICAL - NEVER COMMIT THESE!)
+# ============================================================================
+
+# API Keys & Secrets
+*.key
+*.pem
+*.p12
+*.pfx
+*.jks
+*.keystore
+**/secrets/
+**/secrets/**
+**/.env
+**/.env.local
+**/.env.*.local
+.env
+.env.local
+.env.*.local
+
+# Firebase & Google Services
+**/google-services.json
+**/GoogleService-Info.plist
+**/google-services.json.bak
+**/GoogleService-Info.plist.bak
+
+# Certificates
+*.crt
+*.cer
+*.der
+*.p7b
+*.p7c
+*.p7s
+*.p12
+*.pfx
+
+# OAuth & Tokens
+**/oauth/
+**/tokens/
+*.token
+*.access_token
+*.refresh_token
+
+# ============================================================================
+# Build & Compilation
+# ============================================================================
+
+# Build outputs
+build/
+dist/
+out/
+target/
+bin/
+obj/
+*.o
+*.a
+*.lib
+*.so
+*.dylib
+*.dll
+*.exe
+
+# Symbolication
+*.symbols
+*.symbols.zip
+*.dSYM
+*.dSYM.zip
+
+# Obfuscation
+*.map.json
+*.map
 app.*.symbols
 
-# Obfuscation related
-app.*.map.json
+# ============================================================================
+# Testing & Coverage
+# ============================================================================
 
-# Android Studio will place build artifacts here
-/android/app/debug
-/android/app/profile
-/android/app/release
-
-# iOS related
-**/ios/Pods/
-**/ios/.symlinks/
-**/ios/Flutter/App.framework
-**/ios/Flutter/Flutter.framework
-**/ios/Flutter/Flutter.podspec
-**/ios/Flutter/Generated.xcconfig
-**/ios/Flutter/ephemeral/
-**/ios/Flutter/app.flx
-**/ios/Flutter/app.zip
-**/ios/Flutter/flutter_assets/
-**/ios/ServiceDefinitions.json
-**/ios/Runner/GeneratedPluginRegistrant.*
-
-# Android specific (local machine/build artifacts)
-android/.gradle/
-android/local.properties
-android/app/google-services.json
-
-# macOS related
-**/macos/Flutter/GeneratedPluginRegistrant.swift
-
-# Web related
-lib/generated_plugin_registrant.dart
-
-# Windows related
-**/windows/flutter/generated_plugin_registrant.cc
-**/windows/flutter/generated_plugin_registrant.h
-
-# Linux related
-**/linux/flutter/generated_plugin_registrant.cc
-**/linux/flutter/generated_plugin_registrant.h
-
-# Coverage
+# Test coverage
 coverage/
+*.lcov
+*.coverage
+*.coverage.*
+test/.test_coverage.dart
+.coverage/
 
-# Exceptions to above rules.
+# Test outputs
+test_driver/
+integration_test/.dart_tool/
+integration_test/build/
+
+# ============================================================================
+# Logs & Temporary Files
+# ============================================================================
+
+# Logs
+*.log
+*.log.*
+logs/
+*.log.*
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+lerna-debug.log*
+.pnpm-debug.log*
+
+# Temporary files
+*.tmp
+*.temp
+*.swp
+*.swo
+*.bak
+*.backup
+*.old
+*.orig
+*.rej
+*~
+.#*
+
+# ============================================================================
+# Node.js / Backend (for webhook server)
+# ============================================================================
+
+# Node.js
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+.npm
+.eslintcache
+.node_repl_history
+*.tgz
+.yarn-integrity
+.yarn/cache
+.yarn/unplugged
+.yarn/build-state.yml
+.yarn/install-state.gz
+.pnp.*
+.pnp.js
+
+# Package manager lock files (optional - uncomment if you want to ignore)
+# package-lock.json
+# yarn.lock
+# pnpm-lock.yaml
+
+# ============================================================================
+# PHP / WordPress Plugin
+# ============================================================================
+
+# Composer
+vendor/
+composer.lock
+composer.phar
+
+# PHP
+*.php~
+*.php.bak
+*.php.swp
+*.php.swo
+phpunit.xml
+.phpunit.result.cache
+.php_cs.cache
+
+# WordPress
+wp-config.php
+wp-config-local.php
+.htaccess
+wp-content/uploads/
+wp-content/cache/
+wp-content/backup-db/
+wp-content/advanced-cache.php
+wp-content/wp-cache-config.php
+wp-content/debug.log
+
+# ============================================================================
+# Database & Data Files
+# ============================================================================
+
+# SQLite
+*.db
+*.db-shm
+*.db-wal
+*.sqlite
+*.sqlite3
+
+# Database dumps
+*.sql
+*.dump
+*.backup
+
+# ============================================================================
+# Documentation & Generated Files
+# ============================================================================
+
+# Generated documentation
+doc/api/
+docs/api/
+**/doc/api/
+
+# Generated code
+**/generated/
+**/gen/
+**/gen_*/
+
+# ============================================================================
+# Version Control
+# ============================================================================
+
+# Git
+.git/
+.gitignore.bak
+.gitattributes.bak
+
+# SVN
+.svn/
+.svn/
+
+# Mercurial
+.hg/
+.hgignore
+
+# ============================================================================
+# Miscellaneous
+# ============================================================================
+
+# Archives
+*.7z
+*.dmg
+*.gz
+*.iso
+*.jar
+*.rar
+*.tar
+*.zip
+
+# Compiled source
+*.com
+*.class
+*.dll
+*.exe
+*.o
+*.so
+*.pyc
+*.pyo
+*.rbc
+
+# Package files
+*.dmg
+*.pkg
+*.deb
+*.rpm
+
+# ============================================================================
+# Project-Specific
+# ============================================================================
+
+# T-Work Commerce specific
+tools/seed_points.php.bak
+wp-content/plugins/twork-points-system/logs/
+wp-content/plugins/twork-points-system/tmp/
+wp-content/plugins/twork-points-system/cache/
+
+# Backup files
+*.backup
+*.bak
+*_backup.*
+*_old.*
+
+# Migration files
+migrate_working_dir/
+*.migration
+
+# ============================================================================
+# Exceptions (Files that SHOULD be tracked despite patterns above)
+# ============================================================================
+
+# Keep Flutter tool test data
 !/packages/flutter_tools/test/data/dart_dependencies_test/**/.packages
+
+# Keep example config files (if needed)
+# !.env.example
+# !google-services.json.example
+# !GoogleService-Info.plist.example
+
+# ============================================================================
+# End of .gitignore
+# ============================================================================
