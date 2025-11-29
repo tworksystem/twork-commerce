@@ -1,4 +1,5 @@
 import 'package:ecommerce_int2/utils/price_formatter.dart';
+import 'package:ecommerce_int2/models/woocommerce_product.dart';
 
 class Product {
   final String image;
@@ -36,6 +37,11 @@ class Product {
       'categoryIds': categoryIds,
       'extra': extra,
     };
+  }
+
+  // Create from WooCommerce product
+  factory Product.fromWooCommerce(WooCommerceProduct wooProduct) {
+    return wooProduct.toProduct();
   }
 
   // Create from JSON for caching

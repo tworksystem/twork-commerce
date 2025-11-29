@@ -100,6 +100,11 @@ class ConnectivityService extends ChangeNotifier {
     }
   }
 
+  /// Check connectivity - alias for checkInternetConnectivity
+  Future<bool> checkConnectivity() async {
+    return checkInternetConnectivity();
+  }
+
   /// Check if connected to internet (not just network)
   /// This performs an actual internet connectivity check
   Future<bool> checkInternetConnectivity() async {

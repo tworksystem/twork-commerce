@@ -218,6 +218,50 @@ class WooCommerceProduct {
     return ''; // Return empty string if no images
   }
 
+  // Alias for firstImageUrl for compatibility
+  String get imageUrl => firstImageUrl;
+
+  // Get formatted regular price
+  String get formattedRegularPrice => PriceFormatter.formatFromString(regularPrice.isNotEmpty ? regularPrice : price);
+
+  // Calculate discount percentage
+  double get discountPercentage {
+    if (!onSale || regularPrice.isEmpty || salePrice.isEmpty) {
+      return 0.0;
+    }
+    try {
+      final regular = double.tryParse(regularPrice) ?? 0.0;
+      final sale = double.tryParse(salePrice) ?? 0.0;
+      if (regular > 0) {
+        return ((regular - sale) / regular * 100).roundToDouble();
+      }
+    } catch (e) {
+      // Ignore parsing errors
+    }
+    return 0.0;
+  }
+
+  // Get rating value as double
+  double get ratingValue {
+    try {
+      return double.tryParse(averageRating) ?? 0.0;
+    } catch (e) {
+      return 0.0;
+    }
+  }
+
+  // Check if product is in stock
+  bool get inStock {
+    if (stockStatus == 'instock') return true;
+    if (stockStatus == 'outofstock') return false;
+    // Check stock quantity if available
+    if (stockQuantity != null) {
+      return stockQuantity! > 0;
+    }
+    // Default to true if status is not explicitly out of stock
+    return stockStatus != 'outofstock';
+  }
+
   // Helper method to get clean description
   String get cleanDescription {
     // Remove HTML tags and clean up the description
@@ -242,6 +286,62 @@ class WooCommerceProduct {
     }
 
     return cleanDesc.isEmpty ? 'No description available' : cleanDesc;
+  }
+
+  // Convert to JSON
+  Map<String, dynamic> toJson() {
+    return {
+      'id': id,
+      'name': name,
+      'slug': slug,
+      'permalink': permalink,
+      'date_created': dateCreated,
+      'date_modified': dateModified,
+      'type': type,
+      'status': status,
+      'featured': featured,
+      'catalog_visibility': catalogVisibility,
+      'description': description,
+      'short_description': shortDescription,
+      'sku': sku,
+      'price': price,
+      'regular_price': regularPrice,
+      'sale_price': salePrice,
+      'on_sale': onSale,
+      'purchasable': purchasable,
+      'total_sales': totalSales,
+      'virtual': virtual,
+      'downloadable': downloadable,
+      'tax_status': taxStatus,
+      'tax_class': taxClass,
+      'manage_stock': manageStock,
+      'stock_quantity': stockQuantity,
+      'backorders': backorders,
+      'backorders_allowed': backordersAllowed,
+      'backordered': backordered,
+      'sold_individually': soldIndividually,
+      'weight': weight,
+      'dimensions': {
+        'length': dimensions.length,
+        'width': dimensions.width,
+        'height': dimensions.height,
+      },
+      'shipping_required': shippingRequired,
+      'shipping_taxable': shippingTaxable,
+      'shipping_class': shippingClass,
+      'shipping_class_id': shippingClassId,
+      'reviews_allowed': reviewsAllowed,
+      'average_rating': averageRating,
+      'rating_count': ratingCount,
+      'upsell_ids': upsellIds,
+      'cross_sell_ids': crossSellIds,
+      'parent_id': parentId,
+      'purchase_note': purchaseNote,
+      'categories': categories.map((c) => {'id': c.id, 'name': c.name}).toList(),
+      'images': images.map((img) => {'src': img.src, 'alt': img.alt}).toList(),
+      'stock_status': stockStatus,
+      'price_html': priceHtml,
+    };
   }
 
   // Convert to the existing Product model for compatibility

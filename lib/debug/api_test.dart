@@ -9,7 +9,7 @@ Future<void> debugWooCommerceAPI() async {
   print('1. Testing connectivity...');
   final connectivityService = ConnectivityService();
   await connectivityService.initialize();
-  final hasConnection = await connectivityService.checkConnectivity();
+  final hasConnection = await connectivityService.checkInternetConnectivity();
   print('   Connection status: ${hasConnection ? "✅ Online" : "❌ Offline"}');
   print(
       '   Connection type: ${connectivityService.connectionType}\n');
