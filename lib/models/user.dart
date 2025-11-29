@@ -1,76 +1,43 @@
-/// User model for mock API responses
-/// This model represents a user with basic information
+import 'package:ecommerce_int2/models/dod.dart';
+import 'package:ecommerce_int2/models/id.dart';
+import 'package:ecommerce_int2/models/location.dart';
+import 'package:ecommerce_int2/models/loging.dart';
+import 'package:ecommerce_int2/models/name.dart';
+import 'package:ecommerce_int2/models/picture.dart';
+import 'package:ecommerce_int2/models/registered.dart';
+import 'package:json_annotation/json_annotation.dart';
+part 'user.g.dart';
+
+@JsonSerializable()
 class User {
-  final Name name;
-  final Picture picture;
-  final String phone;
+  String gender;
+  Name name;
+  Location location;
+  String email;
+  Login login;
+  Dob dob;
+  Registered registered;
+  String phone;
+  String cell;
+  Id id;
+  Picture picture;
+  String nat;
 
-  User({
-    required this.name,
-    required this.picture,
-    required this.phone,
-  });
+  User(
+      {required this.gender,
+      required this.name,
+      required this.location,
+      required this.email,
+      required this.login,
+      required this.dob,
+      required this.registered,
+      required this.phone,
+      required this.cell,
+      required this.id,
+      required this.picture,
+      required this.nat});
 
-  factory User.fromJson(Map<String, dynamic> json) {
-    return User(
-      name: Name.fromJson(json['name'] ?? {}),
-      picture: Picture.fromJson(json['picture'] ?? {}),
-      phone: json['phone'] ?? '',
-    );
-  }
+  factory User.fromJson(Map<String, dynamic> json) => _$UserFromJson(json);
 
-  Map<String, dynamic> toJson() {
-    return {
-      'name': name.toJson(),
-      'picture': picture.toJson(),
-      'phone': phone,
-    };
-  }
+  Map<String, dynamic> toJson() => _$UserToJson(this);
 }
-
-/// Name model with first and last name
-class Name {
-  final String first;
-  final String last;
-
-  Name({
-    required this.first,
-    required this.last,
-  });
-
-  factory Name.fromJson(Map<String, dynamic> json) {
-    return Name(
-      first: json['first'] ?? '',
-      last: json['last'] ?? '',
-    );
-  }
-
-  Map<String, dynamic> toJson() {
-    return {
-      'first': first,
-      'last': last,
-    };
-  }
-}
-
-/// Picture model with thumbnail URL
-class Picture {
-  final String thumbnail;
-
-  Picture({
-    required this.thumbnail,
-  });
-
-  factory Picture.fromJson(Map<String, dynamic> json) {
-    return Picture(
-      thumbnail: json['thumbnail'] ?? json['medium'] ?? '',
-    );
-  }
-
-  Map<String, dynamic> toJson() {
-    return {
-      'thumbnail': thumbnail,
-    };
-  }
-}
-

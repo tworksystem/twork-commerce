@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <!--
+    If you are serving your web app in a path other than the root, change the
+    href value below to reflect the base path you are serving from.
+
+    The path provided below has to start and end with a slash "/" in order for
+    it to work correctly.
+
+    For more details:
+    * https://developer.mozilla.org/en-US/docs/Web/HTML/Element/base
+
+    This is a placeholder for base href that will be replaced by the value of
+    the `--base-href` argument provided to `flutter build`.
+  -->
+  <base href="$FLUTTER_BASE_HREF">
+
+  <meta charset="UTF-8">
+  <meta content="IE=Edge" http-equiv="X-UA-Compatible">
+  <meta name="description" content="HomeAid E-commerce Flutter App">
+
+  <!-- iOS meta tags & icons -->
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  <meta name="apple-mobile-web-app-title" content="homeaid_commerce">
+  <link rel="apple-touch-icon" href="icons/Icon-192.png">
+
+  <!-- Favicon -->
+  <link rel="icon" type="image/png" href="favicon.png"/>
+
+  <!-- Web app manifest -->
+  <link rel="manifest" href="manifest.json">
+
+  <title>HomeAid Commerce</title>
+  
+  <!-- CORS and security headers -->
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self' data: gap: https://ssl.gstatic.com https://www.homeaid.com.mm https://httpbin.org https://picsum.photos https://via.placeholder.com; style-src 'self' 'unsafe-inline'; img-src 'self' data: https: http:; script-src 'self' 'unsafe-inline' 'unsafe-eval'; connect-src 'self' https: http: wss: ws:;">
+  
+  <!-- Preconnect to external domains for better performance -->
+  <link rel="preconnect" href="https://www.homeaid.com.mm">
+  <link rel="preconnect" href="https://picsum.photos">
+  <link rel="preconnect" href="https://via.placeholder.com">
+  
+  <!-- DNS prefetch for faster loading -->
+  <link rel="dns-prefetch" href="https://www.homeaid.com.mm">
+  <link rel="dns-prefetch" href="https://picsum.photos">
+  <link rel="dns-prefetch" href="https://via.placeholder.com">
+</head>
+<body>
+  <!-- This script adds the flutter initialization JS code -->
+  <script src="flutter.js" defer></script>
+  
+  <!-- Network connectivity check -->
+  <script>
+    // Check network connectivity
+    function checkConnectivity() {
+      return navigator.onLine;
+    }
+    
+    // Listen for online/offline events
+    window.addEventListener('online', function() {
+      console.log('🌐 Network: Online');
+      if (window.flutter_web) {
+        window.flutter_web.postMessage('network_online');
+      }
+    });
+    
+    window.addEventListener('offline', function() {
+      console.log('🌐 Network: Offline');
+      if (window.flutter_web) {
+        window.flutter_web.postMessage('network_offline');
+      }
+    });
+    
+    // Initial connectivity check
+    console.log('🌐 Initial network status:', checkConnectivity() ? 'Online' : 'Offline');
+  </script>
+</body>
+</html>
