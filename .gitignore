@@ -714,6 +714,15 @@ wp-content/plugins/*/dist/
 wp-content/plugins/*/.git/
 wp-content/plugins/*/.svn/
 
+# Documentation files - Keep only essential README files
+*.md
+!README.md
+!docs/**/*.md
+!README_WOOCOMMERCE.md
+!README_POINTS_SYSTEM.md
+!HOW_TO_RUN.md
+!CART_SYSTEM_README.md
+
 # Keep example/template files
 !*.example
 !*.template
