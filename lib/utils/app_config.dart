@@ -9,11 +9,10 @@ class AppConfig {
   // API Configuration
   static const String baseUrl = 'https://www.tworksystem.com/wp-json/wc/v3';
   static const String wpBaseUrl = 'https://www.tworksystem.com/wp-json/wp/v2';
-  
-  // ⚠️ SECURITY: Replace with your WooCommerce API credentials
-  // Get your Consumer Key and Secret from: WooCommerce > Settings > Advanced > REST API
-  static const String consumerKey = 'YOUR_CONSUMER_KEY_HERE';
-  static const String consumerSecret = 'YOUR_CONSUMER_SECRET_HERE';
+  static const String consumerKey =
+      'YOUR_CONSUMER_KEY_HERE';
+  static const String consumerSecret =
+      'YOUR_CONSUMER_SECRET_HERE';
 
   // Backend Server Configuration (for FCM notifications)
   //

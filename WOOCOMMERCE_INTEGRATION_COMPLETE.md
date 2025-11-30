@@ -224,8 +224,8 @@ All configuration is centralized in `lib/config/woocommerce_config.dart`:
 ```dart
 class WooCommerceConfig {
   static const String baseUrl = 'https://www.homeaid.com.mm';
-  static const String consumerKey = 'ck_8673de0...';
-  static const String consumerSecret = 'cs_603ed47...';
+  static const String consumerKey = 'YOUR_CONSUMER_KEY_HERE';
+  static const String consumerSecret = 'YOUR_CONSUMER_SECRET_HERE';
   
   // Adjust these as needed
   static const int perPage = 20;
